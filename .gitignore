@@ -1,0 +1,94 @@
+# ===== Java / Maven =====
+**/target/
+**/pom.xml.tag
+**/pom.xml.releaseBackup
+**/pom.xml.versionsBackup
+**/pom.xml.next
+**/release.properties
+**/dependency-reduced-pom.xml
+**/buildNumber.properties
+**/.mvn/timing.properties
+**/.mvn/wrapper/maven-wrapper.jar
+**/.mvn/wrapper/maven-wrapper.properties
+**/.mvn/wrapper/MavenWrapperDownloader.java
+
+# ===== IntelliJ IDEA =====
+.idea/
+*.iml
+*.iws
+*.ipr
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+.idea/**/contentModel.xml
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+.idea/**/gradle.xml
+.idea/**/libraries/
+.idea/**/misc.xml
+.idea/**/modules.xml
+.idea/**/runConfigurations/
+.idea/**/compiler.xml
+.idea/**/encodings.xml
+.idea/**/jarRepositories.xml
+.idea/**/vcs.xml
+.idea/**/workspace.xml
+.idea/**/codeStyles/
+out/
+*.log
+
+# ===== Eclipse =====
+.classpath
+.project
+.settings/
+**/bin/
+*.class
+
+# ===== VS Code =====
+.vscode/
+*.code-workspace
+
+# ===== Docker =====
+**/docker-compose.override.yml
+
+# ===== Node / Frontend =====
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.development
+frontend/.env.test
+frontend/.env.production
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/package-lock.json
+frontend/yarn.lock
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Logs =====
+**/logs/
+**/*.log
+
+# ===== Environment Variables =====
+.env
+.env.*
+!.env.example
+
+# ===== Database =====
+*.db
+*.sqlite
+*.h2.db
+*.mv.db
+*.trace.db
