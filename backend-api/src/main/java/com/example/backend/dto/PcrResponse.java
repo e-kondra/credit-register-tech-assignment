@@ -1,7 +1,15 @@
 package com.example.backend.dto;
 
-public abstract class PcrResponse {
-    protected String StatusMessage;
-    protected String Guid;
-    public abstract PcrResponseType getResponseType();
+import lombok.Builder;
+import lombok.Getter;
+
+import java.util.List;
+
+@Builder
+@Getter
+public class PcrResponse {
+    private String statusMessage ;
+    private String guid;
+    private CreditRegisterExtract creditRegisterExtract;
+    private List<ErrorResponse> errorResponses;
 }
