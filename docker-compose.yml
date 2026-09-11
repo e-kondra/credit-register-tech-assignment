@@ -23,6 +23,7 @@ services:
     container_name: kafka-CR
     ports:
       - "9092:9092"
+      - "9094:9094"
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: "broker,controller"
@@ -34,6 +35,9 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
       KAFKA_KRAFT_CLUSTER_ID: "5L6g3nShT-eMCtK--X86sw"
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+      KAFKA_OFFSETS_TOPIC_NUM_PARTITIONS: "1"
+      KAFKA_DEFAULT_REPLICATION_FACTOR: "1"
     volumes:
       - kafka_data:/var/lib/kafka/data
     healthcheck:
@@ -72,10 +76,10 @@ services:
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       # Mailtrap for tests
-      SPRING_MAIL_HOST: smtp.mailtrap.io
-      SPRING_MAIL_PORT: 2525
-      SPRING_MAIL_USERNAME: your_mailtrap_username   # замените
-      SPRING_MAIL_PASSWORD: your_mailtrap_password   # замените
+      MAIL_HOST: sandbox.smtp.mailtrap.io
+      MAIL_PORT: 2525
+      MAIL_USERNAME: 768a31c045ed47
+      MAIL_PASSWORD: dabb23e2436993
       MONITORING_EMAIL_TO: pcr_monitoring@dansketest.dk
     depends_on:
       kafka:
