@@ -51,6 +51,7 @@ export function DetailsPage() {
                         <tr><td>SSN:</td><td>{details.ssn}</td></tr>
                         <tr><td>Fetch Date:</td><td>{new Date(details.fetchDate).toLocaleString()}</td></tr>
                         <tr><td>Reference:</td><td>{details.extractReference}</td></tr>
+                        <tr><td>Status:</td><td>{details.status}</td></tr>
                         <tr>
                             <td>Voluntary Credit Ban:</td>
                             <td>

@@ -65,6 +65,7 @@ export function HistoryPage() {
                             <th>ID</th>
                             <th>Fetch Date</th>
                             <th>Reference</th>
+                            <th>Status</th>
                             <th>Credit Ban</th>
                             <th>Actions</th>
                         </tr>
@@ -75,6 +76,7 @@ export function HistoryPage() {
                                 <td>{item.id}</td>
                                 <td>{new Date(item.fetchDate).toLocaleString()}</td>
                                 <td>{item.extractReference}</td>
+                                <td>{item.status}</td>
                                 <td>
                                     {item.voluntaryCreditBan ? (
                                         <span className="ban-active">YES</span>

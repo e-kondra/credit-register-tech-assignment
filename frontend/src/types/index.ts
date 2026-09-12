@@ -1,8 +1,11 @@
+export type CreditExtractStatus = 'SUCCESS' | 'PCR_ERROR' | 'DECEASED' | 'SERVICE_ERROR';
+
 export interface CreditExtractSummary {
     id: number;
     ssn: string;
     fetchDate: string;
     extractReference: string;
+    status: CreditExtractStatus;
     voluntaryCreditBan: boolean;
     banReason: string | null;
     lendersCount: number | null;

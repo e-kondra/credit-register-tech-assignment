@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.dto.FetchRequest;
 import com.example.backend.entity.CreditExtract;
 import com.example.backend.service.CreditService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,7 @@ public class CreditController {
     private final CreditService creditService;
 
     @PostMapping("/fetch")
-    public ResponseEntity<CreditExtract> fetchCredit(@RequestBody FetchRequest request) {
+    public ResponseEntity<CreditExtract> fetchCredit(@Valid @RequestBody FetchRequest request) {
         System.out.println("fetch");
         CreditExtract saved = creditService.fetchAndSave(request.getSsn());
         return ResponseEntity.ok(saved);

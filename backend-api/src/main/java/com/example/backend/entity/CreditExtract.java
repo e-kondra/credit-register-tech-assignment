@@ -2,6 +2,8 @@ package com.example.backend.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,6 +38,10 @@ public class CreditExtract {
 
     private String extractReference;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private CreditExtractStatus status;
+
     @Column(name = "voluntary_credit_ban")
     private boolean voluntaryCreditBan;
 
@@ -60,6 +66,7 @@ public class CreditExtract {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
+        if (status == null) status = CreditExtractStatus.SUCCESS;
     }
 
     @PreUpdate

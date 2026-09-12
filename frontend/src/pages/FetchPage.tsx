@@ -61,6 +61,15 @@ export function FetchPage() {
                         <tbody>
                             <tr><td>ID:</td><td>{result.id}</td></tr>
                             <tr><td>SSN:</td><td>{result.ssn}</td></tr>
+                            <tr>
+                                <td>Status:</td>
+                                <td>
+                                    {result.status === 'SUCCESS' && <span className="status-success">SUCCESS</span>}
+                                    {result.status === 'PCR_ERROR' && <span className="status-error">PCR ERROR</span>}
+                                    {result.status === 'DECEASED' && <span className="status-warning">DECEASED</span>}
+                                    {result.status === 'SERVICE_ERROR' && <span className="status-error">SERVICE ERROR</span>}
+                                </td>
+                            </tr>
                             <tr><td>Fetch Date:</td><td>{new Date(result.fetchDate).toLocaleString()}</td></tr>
                             <tr><td>Reference:</td><td>{result.extractReference}</td></tr>
                             <tr>
