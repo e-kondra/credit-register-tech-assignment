@@ -378,4 +378,4 @@ credit-register-tech-assignment/
 ---
 ## Video Walkthrough
 
-A 5-minute walkthrough of the solution is available here: [Google Drive](https://drive.google.com/file/d/ВАШ_ID/view?usp=sharing)
+A 5-minute walkthrough of the solution is available here: [google-drive](https://drive.google.com/file/d/1RAZWfz4aRMNyC3K1HrxdBDY5B4H8YLnF/view?usp=sharing)
