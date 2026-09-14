@@ -19,6 +19,7 @@ Built as a **microservices-based** application with three main components: a Rea
 - [Design Decisions & Trade-offs](#design-decisions--trade-offs)
 - [Assumptions](#assumptions)
 - [Future Improvements](#future-improvements)
+- [Project Structure](#project-structure)
 
 ---
 
