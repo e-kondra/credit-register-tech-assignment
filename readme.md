@@ -24,46 +24,7 @@ Built as a **microservices-based** application with three main components: a Rea
 
 ## Architecture
 
-```
-┌──────────────────────────────────────────────────────────────────────┐
-│                           User (Browser)                             │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │ HTTP
-                               ▼
-                    ┌────────────────────┐
-                    │  Frontend (React)  │
-                    │  Nginx + Vite      │
-                    │  Port 80           │
-                    └─────────┬──────────┘
-                              │ /api/*
-                              ▼
-                    ┌────────────────────┐
-                    │  Backend API       │
-                    │  Spring Boot 3.2   │
-                    │  Port 8080         │
-                    └──┬─────────────┬───┘
-                       │             │
-                       │ JDBC        │ Kafka Producer
-                       ▼             ▼
-              ┌──────────────┐  ┌─────────────────┐
-              │  PostgreSQL  │  │  Apache Kafka   │
-              │  Port 5432   │  │  (KRaft mode)   │
-              └──────────────┘  └────────┬────────┘
-                                         │ credit-ban-events
-                                         ▼
-                                ┌──────────────────────┐
-                                │  Monitoring Service  │
-                                │  Spring Boot 3.2     │
-                                │  Kafka Consumer      │
-                                │  Port 8082           │
-                                └────────┬─────────────┘
-                                         │ SMTP
-                                         ▼
-                                  ┌──────────────┐
-                                  │  Mail Server │
-                                  │  (Mailtrap)  │
-                                  └──────────────┘
-```
+![Architecture](docs/CR_architecture.png)
 
 **Data flow:**
 
@@ -152,7 +113,7 @@ mvn spring-boot:run
 ```
 
 Requires: Java 21, Maven 3.9+, running PostgreSQL and Kafka.
-> Tip: start only the infrastructure with `docker-compose up -d postgres kafka`.
+> start only the infrastructure with `docker-compose up -d postgres kafka`.
 
 ### Monitoring Service
 
@@ -221,13 +182,21 @@ GET /api/credit/details/{id}
 
 Returns the full record, including the raw PCR response in `fullResponse` (JSON string).
 
-### List credit bans (internal)
+### List credit bans (internal / debug)
 
 ```http
 GET /api/credit/internal/credit-bans
 ```
 
-Returns all records where `voluntaryCreditBan = true`. Used by the monitoring service.
+Returns all records where `voluntaryCreditBan = true`.
+
+The endpoint is retained for debugging:
+
+- Quickly inspect all credit-ban records in the system.
+- Serve as a fallback if Kafka is unavailable and the monitoring service needs to reconcile state.
+- Enable future admin dashboards or manual audits.
+
+It is **not called by any production service** and does not affect the regular data flow.
 
 ---
 
@@ -305,7 +274,7 @@ Total: **21 tests**.
 
 ## Design Decisions & Trade-offs
 
-### Microservices with Kafka (vs. scheduled polling)
+### Microservices with Kafka 
 
 We chose an event-driven architecture with Kafka over a scheduled polling job:
 
@@ -358,15 +327,15 @@ For the scope of this assignment, authentication and authorization were **intent
 
 ## Future Improvements
 
-- 🔹 **Outbox pattern** for guaranteed Kafka delivery (no lost events on broker downtime).
-- 🔹 **Idempotent consumer** in the monitoring service (deduplication by `extractReference`).
-- 🔹 **Normalized schema** for loans and income (enables analytics).
-- 🔹 **OAuth2 / JWT** authentication for API endpoints.
-- 🔹 **Dead-letter queue** for Kafka messages that fail repeatedly.
-- 🔹 **Real PCR integration** instead of the mock.
-- 🔹 **Frontend tests** with React Testing Library.
-- 🔹 **Metrics & tracing** with Micrometer + OpenTelemetry.
-- 🔹 **CI/CD** with GitHub Actions (build, test, Docker push).
+- **Outbox pattern** for guaranteed Kafka delivery (no lost events on broker downtime).
+- **Idempotent consumer** in the monitoring service (deduplication by `extractReference`).
+- **Normalized schema** for loans and income (enables analytics).
+- **OAuth2 / JWT** authentication for API endpoints.
+- **Dead-letter queue** for Kafka messages that fail repeatedly.
+- **Real PCR integration** instead of the mock.
+- **Frontend tests** with React Testing Library.
+- **Metrics & tracing** with Micrometer + OpenTelemetry.
+- **CI/CD** with GitHub Actions (build, test, Docker push).
 
 ---
 
@@ -406,7 +375,3 @@ credit-register-tech-assignment/
 ```
 
 ---
-
-## License
-
-This is a technical assignment for demonstration purposes only. Not licensed for production use.
