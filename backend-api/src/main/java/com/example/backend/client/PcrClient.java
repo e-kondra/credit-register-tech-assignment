@@ -2,7 +2,6 @@ package com.example.backend.client;
 
 import com.example.backend.dto.PcrRequest;
 import com.example.backend.dto.PcrResponse;
-import com.example.backend.exception.PcrApiException;
 import com.example.backend.exception.PcrUnavailableException;
 import com.example.backend.exception.PcrValidationException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,15 +13,14 @@ import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
 
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @Slf4j
 public class PcrClient {
 
     private final RestClient restClient;
-    private final ObjectMapper objectMapper;
 
     @Value("${pcr.api.url}")
     private String apiUrl;
@@ -39,9 +37,8 @@ public class PcrClient {
     @Value("${pcr.targetEnvironment}")
     private String targetEnvironment;
 
-    public PcrClient(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-        this.restClient = RestClient.builder().build();
+    public PcrClient(RestClient.Builder restClientBuilder) {
+        this.restClient = restClientBuilder.build();
     }
 
     public PcrResponse fetchCreditData(String ssn) {
@@ -98,6 +95,4 @@ public class PcrClient {
                         .build())
                 .build();
     }
-
-
 }

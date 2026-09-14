@@ -162,6 +162,7 @@ public class CreditService {
     }
 
     public List<CreditExtract> getHistory(String ssn) {
+        validateSsn(ssn);
         return repository.findBySsnOrderByFetchDateDesc(ssn);
     }
 
