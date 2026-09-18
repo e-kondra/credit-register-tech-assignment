@@ -17,6 +17,7 @@ import com.example.backend.repository.CreditExtractRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
@@ -146,14 +147,27 @@ public class CreditServiceTest {
 
     @Test
     void fetchAndSave_pcrUnavailable() {
+        String errorMessage = "PCR API is unreachable: connection refused";
         when(pcrClient.fetchCreditData(VALID_SSN))
-                .thenThrow(new PcrUnavailableException("PCR is down"));
+                .thenThrow(new PcrUnavailableException(errorMessage));
         when(repository.save(any(CreditExtract.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
         assertThatThrownBy(() -> creditService.fetchAndSave(VALID_SSN))
                 .isInstanceOf(PcrUnavailableException.class)
-                .hasMessageContaining("PCR is down");
+                .hasMessageContaining(errorMessage);
+
+        ArgumentCaptor<CreditExtract> captor = ArgumentCaptor.forClass(CreditExtract.class);
+        verify(repository).save(captor.capture());
+
+        CreditExtract saved = captor.getValue();
+        assertThat(saved.getSsn()).isEqualTo(VALID_SSN);
+        assertThat(saved.getStatus()).isEqualTo(CreditExtractStatus.SERVICE_ERROR);
+        assertThat(saved.isVoluntaryCreditBan()).isFalse();
+        assertThat(saved.getFullResponse()).contains(errorMessage);
+        assertThat(saved.getExtractReference()).isNull();
+
+        verifyNoInteractions(kafkaMessageSender);
     }
 
     @Test

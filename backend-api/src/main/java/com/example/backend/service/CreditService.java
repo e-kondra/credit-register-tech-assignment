@@ -12,7 +12,6 @@ import com.example.backend.exception.InvalidSsnException;
 import com.example.backend.exception.PcrUnavailableException;
 import com.example.backend.repository.CreditExtractRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,7 +32,6 @@ public class CreditService {
     // SSN: DDMMYY-NNNN or DDMMYY+NNNN
     private static final Pattern SSN_PATTERN = Pattern.compile("^\\d{6}[-+]\\d{3,4}$");
 
-    @Transactional
     public CreditExtract fetchAndSave(String ssn) {
         validateSsn(ssn);
         log.info("Fetching credit data for SSN: {}", ssn);
