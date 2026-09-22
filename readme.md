@@ -379,20 +379,3 @@ credit-register-tech-assignment/
 ## Video Walkthrough
 
 A 5-minute walkthrough of the solution is available here: [google-drive](https://drive.google.com/file/d/1RAZWfz4aRMNyC3K1HrxdBDY5B4H8YLnF/view?usp=sharing)
-
-## Time Spent
-
-Total: **~40 hours**
-
-| Phase | Hours | Notes |
-|-------|-------|-------|
-| Requirements analysis & architecture design | 3     | Read assignment, designed microservices architecture, chose Kafka over polling |
-| Backend API (Spring Boot) | 10    | DTOs, entities, PCR client, mock PCR controller, service layer, REST endpoints |
-| PostgreSQL & JPA setup | 2     | Entity mapping, repository, Postgres config, debugging schema issues |
-| Kafka integration | 5     | Producer setup, topic config, debugging listener/deserialization issues |
-| Monitoring service | 3     | Kafka consumer, email service, Mailtrap integration |
-| Frontend (React + TypeScript) | 5     | 3 pages, API client, routing, styles, error handling |
-| Error handling & validation | 3     | Custom exceptions, GlobalExceptionHandler, PCR error scenarios |
-| Tests | 3     | Unit tests (service, client, controller) |
-| Docker & deployment | 2     | Dockerfiles, docker-compose, debugging container issues |
-| Documentation (README, video) | 4     | README, architecture diagram, walkthrough video |
